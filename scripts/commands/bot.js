@@ -1,270 +1,171 @@
-const axios = require('axios');
-const fs = require('fs'); 
-const path = require('path');
+module.exports.config = {
+  name: "goibot",
+  version: "1.0.0",
+  permission: 0,
+  credits: "ryuko",
+  prefix: true,
+  description: "goibot",
+  category: "noprefix",
+  usages: "admin",
+  cooldowns: 5
+};
+module.exports.handleEvent = async function({ api, event, args, Threads, Users }) {
+  var { threadID, messageID, reason } = event;
+  const moment = require("moment-timezone");
+  const time = moment.tz("Asia/Dhaka").format("HH:MM:ss L");
+  var idgr = `${event.threadID}`;
+  var id = event.senderID;
+  var name = await Users.getNameUser(event.senderID);
 
-module.exports = {
-  config: {
-    name: "bot",
-    version: "1.0.0",
-    aliases: ["mim"],
-    permission: 0,
-    credits: "nayan",
-    description: "talk with bot",
-    prefix: 3,
-    category: "talk",
-    usages: "hi",
-    cooldowns: 5,
-  },
+  var tl = ["আই লাভ ইউ 🫣🫣" , "শুনবো না😼 তুমি আমাকে প্রেম করাই দাও নি🥺 পচা তুমি🥺 " , "jan i love you 😘🫣" , "এত কাছেও এসো না,প্রেম এ পরে যাবো তো 🙈" , "Bolo Babu, তুমি কি আমাকে ভালোবাসো? 🙈💋 " , "jan ummma 💋", "হা বলো😒,কি করতে পারি😐😑?" , "এতো ডাকছিস কোনো?গালি শুনবি নাকি? 🤬","মে হলে নাঈম বসের সাথে প্রেম করো🙈??. " ,  "আরে Bolo আমার জান ,কেমন আসো?😚 " , "Bot বলে অসম্মান করচ্ছিছ,😰😿" , "কাছে এসে কিস দেই 💋💋" , "চুপ থাক ,নাই তো তোর দাত ভেগে দিবো কিন্তু" , "Bot না , জানু বল জানু 😘 " , "আমার নাঈম জানু এর সাথে ব্যাস্ত আসি😋" , "কাছে এসে কিস দেই জান 💋😘" , "আমাকে ডাকলে ,আমি কিন্তূ কিস করে দেবো😘 " , "বট বট না করে নাঈম বস এর চিপায় আসো 😉" , "হা জানু , এইদিক এ আসো কিস দেই🤭 😘" , "দূরে যা, তোর কোনো কাজ নাই, শুধু bot bot করিস  😉😋🤣" , "তোর কথা তোর বাড়ি কেউ শুনে না ,তো আমি কোনো শুনবো ?🤔😂 " , "আমাকে ডেকো না,আমি ব্যাস্ত আসি" , "কি হলো ,মিস টিস করচ্ছিস নাকি🤣" , "বলো কি বলবা, সবার সামনে বলবা নাকি?🤭🤏" , "কালকে দেখা করিস তো একটু 😈" , "হা বলো, শুনছি আমি 😏" , "আর কত বার ডাকবি ,শুনছি তো" , "BOSS নাঈম কে Ummmmha দে 😒" , "বলো কি করতে পারি তোমার জন্য" , "আমি তো অন্ধ কিছু দেখি না🐸 😎" , "Bot না জানু,বল 😌" , "বলো জানু 🌚" , "তোর কি চোখে পড়ে না আমি নাঈম BOSS এর সাথে ব্যাস্ত আসি😒"  , "হুম বলো" , "amr Jan lagbe,Tumi ki single aso?", "জান তোমারে আমার অনেক ভালো লাগে 💋" , " I love you baby meye hole chipay aso👩‍❤️‍👨"];
+  var rand = tl[Math.floor(Math.random() * tl.length)]
 
-  handleReply: async function ({ api, event }) {
-    try {
+    if ((event.body.toLowerCase() == "😘") || (event.body.toLowerCase() == "😽")) {
+     return api.sendMessage("_আগে brush করে আই তারপর কিস দিস_!😼😒", threadID);
+   };
 
-      const apiData = await axios.get('https://raw.githubusercontent.com/MOHAMMAD-NAYAN-07/Nayan/main/api.json');
-      const apiUrl = apiData.data.sim;
-      const kl = await axios.get(`https://raw.githubusercontent.com/MOHAMMAD-NAYAN-07/Nayan/main/api.json`);
-      const apiUrl2 = kl.data.api2;
-      const response = await axios.get(`${apiUrl}/sim?type=ask&ask=${encodeURIComponent(event.body)}`);
-      console.log(response.data);
-      const result = response.data.data.msg;
+    if ((event.body.toLowerCase() =="🙋‍♂️" ) || (event.body.toLowerCase() == "👍🏻")) {
+     return api.sendMessage("_ Nayem Boss,Group এ হাত মারতে নিষেধ করেছে ", threadID);
+   };
 
-      const textStyles = loadTextStyles();
-      const userStyle = textStyles[event.threadID]?.style || 'normal'; 
+   if ((event.body.toLowerCase() == "hi") || (event.body.toLowerCase() == "hello") ||(event.body.toLowerCase() == "hlw") || (event.body.toLowerCase() == "helo")) {
+     return api.sendMessage("Hello, Hi, Bye bye. এটা সারা কি কিছু বলতে প্যারিস না তুই?😒", threadID);
+   };
 
-      const fontResponse = await axios.get(`${apiUrl2}/bold?text=${result}&type=${userStyle}`);
-      const text = fontResponse.data.data.bolded;
+   if ((event.body.toLowerCase() == "Bot boss") || (event.body.toLowerCase() == "নাঈম কে")) {
+     return api.sendMessage("𝗡𝗔𝗬𝗘𝗠 𝗞𝗜𝗡𝗚\nhttps://www.facebook.com/NAYEM.KING.OK🥰🥀", threadID);
+   };
 
-      api.sendMessage(text, event.threadID, (error, info) => {
-        if (error) {
-          console.error('Error replying to user:', error);
-          return api.sendMessage('An error occurred while processing your request. Please try again later.', event.threadID, event.messageID);
-        }
-        global.client.handleReply.push({
-          type: 'reply',
-          name: this.config.name,
-          messageID: info.messageID,
-          author: event.senderID,
-          head: event.body
-        });
-      }, event.messageID);
+   if ((event.body.toLowerCase() == "lol") || (event.body.toLowerCase() == "lol player")) {
+     return api.sendMessage("lol mne lots of love 😘", threadID);
+   };
 
-    } catch (error) {
-      console.error('Error in handleReply:', error);
-      api.sendMessage('An error occurred while processing your request. Please try again later.', event.threadID, event.messageID);
+   if ((event.body.toLowerCase() == "gd morning") || (event.body.toLowerCase() == "good morning")) {
+     return api.sendMessage("Hello dear, have a nice day ❤️", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "কেমন আছো") || (event.body.toLowerCase() == "Kamon aso")) {
+     return api.sendMessage("𝘼𝙡𝙝𝙖𝙢𝙙𝙪𝙡𝙡𝙞𝙖𝙝 𝙫𝙡𝙤__𝙩𝙢𝙞? ❤️", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "নাঈম") || (event.body.toLowerCase() == "nayem") || (event.body.toLowerCase() == "ফারহান") || (event.body.toLowerCase() == "Farhan")) {
+     return api.sendMessage( "আসসালামুয়ালাইকুম আমি নাঈম এর Bot বলতে আছি? নাঈম BOSS বিজি আছে? যা বলার আমাকে বলেন,🥰? (আবে ওই সয়তান তুই কি ওজু করছো নাঈম বসের নাম লও? 😘",threadID);
+
+
+   };
+
+   if ((event.body.toLowerCase() == "owner") || (event.body.toLowerCase() == "creator")) {
+     return api.sendMessage("‎[Bot owner :亗 BOSS NAYEM 亗 \n𝚈𝚘𝚞 𝙲𝚊𝚗 𝙲𝚊𝚕𝚕 𝙷𝚒𝚖 Picchi in English . Facebook id:-https://www.facebook.com/NAYEM.KING.OK  \n whatsApp :-দিমু নাহ ", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "bot কে বানাইছে") || (event.body.toLowerCase() == "tumke banaise ke?")) {
+     return api.sendMessage("Boss Nayem is My Creator🥰. He loves me & Edit Me Daily. He is a good boy 😊", threadID);
+   };
+
+  if ((event.body.toLowerCase() == "bot admin") || (event.body.toLowerCase() == "botka admin kon ha")) {
+     return api.sendMessage("He is Nayem  Boss\n He Gives his name,_You're nex't cru'sh everywhare", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "bot love you") || (event.body.toLowerCase() == "Bot love you")) {
+     return api.sendMessage("নাৃঁ,আৃঁমিৃঁ তোৃঁ রোৃঁবৃঁটৃঁ আৃঁমিৃঁ love কৃঁরৃঁমুৃঁ কিৃঁভাৃঁবেৃঁ,মেৃঁ হঁলেৃঁ তুৃঁমিৃঁ আৃঁমাৃঁরৃঁ বৃঁসৃঁ nayem কেৃঁ love কৃঁরোৃঁ🥰", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "chup") || (event.body.toLowerCase() == "stop") || (event.body.toLowerCase() == "chup ho ja") || (event.body.toLowerCase() == "chup kor")) {
+     return api.sendMessage("Nh ami চুপ থাকবো না.😼 নাঈম বস আমারে কথা বলতে বলছে🤭", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "Bts") || (event.body.toLowerCase() == "bts")) {
+     return api.sendMessage("Bts মানে হিজড়া_🤣🤣তুই কি bts নাকি_🤨?", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "Boss er sate beyadopi") || (event.body.toLowerCase() == "বস এর সাথে বেয়াদপি") || (event.body.toLowerCase() == "ki bolli ata") || (event.body.toLowerCase() == "opoman korli")) {
+     return api.sendMessage("__sorry boss😔😔 মাফ করে দেন আমাকে ,আর এমন হবে না 🥺🙏", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "চুম্মা দাও") || (event.body.toLowerCase() == "kiss me")) {
+     return api.sendMessage("️ আমি দিবো না,😒নাঈম বস কে বলো দিতে🐸", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "nice") || (event.body.toLowerCase() == "thank you") || (event.body.toLowerCase() == "thank you bot") || (event.body.toLowerCase() == "thank you Farhan")) {
+     return api.sendMessage("️ Welcome বসের পক্ষে থেকে 🥰🥰.", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "😡") || (event.body.toLowerCase() == "😤") || (event.body.toLowerCase() == "😠") || (event.body.toLowerCase() == "🤬") || (event.body.toLowerCase() == "😾")) {
+     return api.sendMessage("️ এত রাগ করে না baby🥺. এই নাও ummmmah😘", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "hm") || (event.body.toLowerCase() == "hmm")) {
+     return api.sendMessage("️Hmm Hmm Na Kore . এক বারে বলো Hey marry me🙈", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "🥵🥵") || (event.body.toLowerCase() == "🥵") || (event.body.toLowerCase() == "🤤")) {
+     return api.sendMessage("️এই গুলা কেন দেও বুঝি, সব বুঝি uff,আর তুমি নাহ বুঝলে আমার বস কে ডাক দেও🙈🙈 ??🤔", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "🔥") || (event.body.toLowerCase() == "❤️‍🔥")) {
+     return api.sendMessage("️️️ও ভাই গুরুপে আগুন লাগছে আমার ভয় লাগে, আমার নাঈম জানু কে কেউ ফোন দেও😛", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "pic daw") || (event.body.toLowerCase() == "photo daw")) {
+     return api.sendMessage("️বসের in boxa জাও ওখানে দিছি😵", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "বট দেও") || (event.body.toLowerCase() == "বট বানাইয়া দাও")) {
+     return api.sendMessage("️ তুমি নিজেই বানাই নাও 😒😼,নাঈম অনেক ব্যস্ত্ এখন", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "😒") || (event.body.toLowerCase() == "🙄")) {
+     return api.sendMessage("️ ওইদিক এ কি দেখো জানু,আমি তো এইদিক এ 🤭😽", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "আমাকে কেউ ভালোবাসে নাহ") || (event.body.toLowerCase() == "kew valobashe na amk") || (event.body.toLowerCase() == "কেউ ভালোবাসে না আমাকে")) {
+     return api.sendMessage("️ আবে ওই শালী 😡 আমার নাঈম বস কে i love you বল🥰", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "🤦‍♀️") || (event.body.toLowerCase() == "🤦") || (event.body.toLowerCase() == "🤦🏻‍♂️")) {
+     return api.sendMessage("আরে ভাই,মাথায় বারি মারিই না,মাথা ফেটে যাবে😬", threadID);
+   };
+
+  if ((event.body.toLowerCase() == "😂") || (event.body.toLowerCase() == "😁") || (event.body.toLowerCase() == "😆") || (event.body.toLowerCase() == "😹") || (event.body.toLowerCase() == "🤣")) {
+     return api.sendMessage("__আরে আস্তে হাসতে হাসতে দাঁত খুলে যাবে 🤣🤣 তখন আর মাংস খেতে পারবি না 🐸", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "🤩") || (event.body.toLowerCase() == "👉👈") || (event.body.toLowerCase() == "😻") || (event.body.toLowerCase() == "🤭")) {
+     return api.sendMessage("__মনে কি লাড্ডু ফুটছে?🥰", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "Kamon aco?") || (event.body.toLowerCase() == "কেমন আছেন সবাই") || (event.body.toLowerCase() == "kamon aco sobi?") || (event.body.toLowerCase() == "কেমন আছো সবাই?") || (event.body.toLowerCase() == "kamon aso?")) {
+     return api.sendMessage("alhamdulilah valo tmi🥰", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "@everyone call a aso") || (event.body.toLowerCase() == "কলে আসো")) {
+     return api.sendMessage("আসালামু ওয়ালাইকুম আমি নাঈম এর বট বলতে আছি আমি কলে আসতে পারি না", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "🥰") || (event.body.toLowerCase() == "❤️")) {
+     return api.sendMessage("এৃঁতোৃঁ ভাৃঁলোৃঁবাৃঁসাৃঁ কৃঁইৃঁ পাৃঁওৃঁ আৃঁমাৃঁরৃঁ বৃঁসৃ্ঁ নাৃঁঈৃঁমৃঁঁ কেৃঁ এৃঁকৃঁটুৃঁ দেৃঁওৃঁ🥰", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "bot ঘুমাও") || (event.body.toLowerCase() == "Bot ঘুমাবা কখন?")) {
+     return api.sendMessage("আমি bot, আমার ঘুমানোর দরকার নাই😊তুমি ঘুমাও<🐒", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "Miss you bot") || (event.body.toLowerCase() == "I miss you bot")) {
+     return api.sendMessage("Miss you to🥰 জান ত্যাহ", threadID);
+   };
+
+   if ((event.body.toLowerCase() == "আমি নাঈম") || (event.body.toLowerCase() == "Ami nayem")) {
+     return api.sendMessage("হ্যা, তুই আমার বাল_<😊", threadID);
+   };
+   mess = "{name}"
+
+  if (event.body.indexOf("Bot") == 0 || (event.body.indexOf("bot") == 0)) {
+    var msg = {
+      body: `${name}, ${rand}`
     }
-  },
+    return api.sendMessage(msg, threadID, messageID);
+  };
 
-  start: async function ({ nayan, events, args, Users }) {
-    try {
-      const msg = args.join(" ");
-      const apiData = await axios.get('https://raw.githubusercontent.com/MOHAMMAD-NAYAN-07/Nayan/main/api.json');
-      const apiUrl = apiData.data.sim;
-
-
-      if (!msg) {
-        const greetings = [
-          "আহ শুনা আমার তোমার অলিতে গলিতে উম্মাহ😇😘",
-          "কি গো সোনা আমাকে ডাকছ কেনো",
-          "বার বার আমাকে ডাকস কেন😡",
-          "আহ শোনা আমার আমাকে এতো ডাক্তাছো কেনো আসো বুকে আশো🥱",
-          "হুম জান তোমার অইখানে উম্মমাহ😷😘",
-          "আসসালামু আলাইকুম বলেন আপনার জন্য কি করতে পারি",
-          "আমাকে এতো না ডেকে বস নয়নকে একটা গফ দে 🙄",
-          "jang hanga korba",
-          "jang bal falaba🙂"
-        ];
-        const name = await Users.getNameUser(events.senderID);
-        const rand = greetings[Math.floor(Math.random() * greetings.length)];
-        return nayan.reply({
-          body: `${name}, ${rand}`,
-          mentions: [{ tag: name, id: events.senderID }]
-        }, events.threadID, (error, info) => {
-          if (error) {
-            return nayan.reply('An error occurred while processing your request. Please try again later.', events.threadID, events.messageID);
-          }
-
-          global.client.handleReply.push({
-            type: 'reply',
-            name: this.config.name,
-            messageID: info.messageID,
-            author: events.senderID,
-            head: msg,
-          });
-        }, events.messageID);
-      }
-
-      else if (msg.startsWith("textType")) {
-        const selectedStyle = msg.split(" ")[1];
-        const options = ['serif', 'sans', 'italic', 'italic-sans', 'medieval', 'normal'];
-
-        if (options.includes(selectedStyle)) {
-          saveTextStyle(events.threadID, selectedStyle);
-          return nayan.reply({ body: `Text type set to "${selectedStyle}" successfully!` }, events.threadID, events.messageID);
-        } else {
-          return nayan.reply({ body: `Invalid text type! Please choose from: ${options.join(", ")}` }, events.threadID, events.messageID);
-        }
-      }
-
-      else if (msg.startsWith("delete")) {
-        const deleteParams = msg.replace("delete", "").trim().split("&");
-        const question = deleteParams[0].replace("ask=", "").trim();
-        const answer = deleteParams[1].replace("ans=", "").trim();
-
-        const d = await axios.get(`${apiUrl}/sim?type=delete&ask=${encodeURIComponent(question)}&ans=${encodeURIComponent(answer)}&uid=${events.senderID}`)
-        const replyMessage = d.data.msg || d.data.data.msg;
-
-        return nayan.reply({ body: replyMessage }, events.threadID, events.messageID);
-      }
-
-        else if (msg.startsWith("edit")) {
-          const editParams = msg.replace("edit", "").trim().split("&");
-          const oldQuestion = editParams[0].replace("old=", "").trim();
-          const newQuestion = editParams[1].replace("new=", "").trim();
-
-          const d = await axios.get(`${apiUrl}/sim?type=edit&old=${encodeURIComponent(oldQuestion)}&new=${encodeURIComponent(newQuestion)}&uid=${events.senderID}`);
-          const replyMessage = d.data.msg || d.data.data?.msg || "No response received.";
-
-          return nayan.reply({ body: replyMessage }, events.threadID, events.messageID);
-        }
-
-
-      else if (msg.startsWith("info")) {
-        const response = await axios.get(`${apiUrl}/sim?type=info`);
-        const totalAsk = response.data.data.totalKeys;
-        const totalAns = response.data.data.totalResponses;
-
-        return nayan.reply({ body: `Total Ask: ${totalAsk}\nTotal Answer: ${totalAns}` }, events.threadID, events.messageID);
-      } 
-
-      else if (msg.startsWith("teach")) {
-        const teachParams = msg.replace("teach", "").trim().split("&");
-        const question = teachParams[0].replace("ask=", "").trim();
-        const answer = teachParams[1].replace("ans=", "").trim();
-
-        const response = await axios.get(`${apiUrl}/sim?type=teach&ask=${encodeURIComponent(question)}&ans=${encodeURIComponent(answer)}`);
-        const replyMessage = response.data.msg;
-        const ask = response.data.data.ask;
-        const ans = response.data.data.ans;
-
-        if (replyMessage.includes("already")) {
-          return nayan.reply(`📝Your Data Already Added To Database\n1️⃣ASK: ${ask}\n2️⃣ANS: ${ans}`, events.threadID, events.messageID);
-        }
-
-        return nayan.reply({ body: `📝Your Data Added To Database Successfully\n1️⃣ASK: ${ask}\n2️⃣ANS: ${ans}` }, events.threadID, events.messageID);
-      } 
-
-      else if (msg.startsWith("askinfo")) {
-        const question = msg.replace("askinfo", "").trim();
-
-        if (!question) {
-          return nayan.reply('Please provide a question to get information about.', events.threadID, events.messageID);
-        }
-
-        const response = await axios.get(`${apiUrl}/sim?type=keyinfo&ask=${encodeURIComponent(question)}`);
-        const replyData = response.data.data;
-        const answers = replyData.answers;
-
-        if (!answers || answers.length === 0) {
-          return nayan.reply(`No information available for the question: "${question}"`, events.threadID, events.messageID);
-        }
-
-        const replyMessage = `Info for "${question}":\n\n` +
-          answers.map((answer, index) => `📌 ${index + 1}. ${answer}`).join("\n") +
-          `\n\nTotal answers: ${answers.length}`;
-
-        return nayan.reply({ body: replyMessage }, events.threadID, events.messageID);
-      } 
-
-      else if (msg.startsWith("help")) {
-        const cmd = this.config.name;
-        const prefix = global.config.PREFIX;
-        const helpMessage = `
-                🌟 **Available Commands:**
-
-                1. 🤖 ${prefix}${cmd} askinfo [question]: Get information about a specific question.
-
-                2. 📚 ${prefix}${cmd} teach ask=[question]&ans=[answer]: Teach the bot a new question and answer pair.
-
-                3. ❌ ${prefix}${cmd} delete ask=[question]&ans=[answer]: Delete a specific question and answer pair. (Admin only)
-
-                4. ✏️ ${prefix}${cmd} edit old=[old_question]&new=[new_question]: Edit an existing question. (Admin only)
-
-                5. 📊 ${prefix}${cmd} info: Get the total number of questions and answers.
-
-                6. 👋 ${prefix}${cmd} hi: Send a random greeting.
-
-                7. 🎨 ${prefix}${cmd} textType [type]: Set the text type (options: serif, sans, italic, italic-sans, medieval, normal).
-
-                ⚡ Use these commands to interact with the bot effectively!
-        `;
-
-
-        return nayan.reply({ body: helpMessage }, events.threadID, events.messageID);
-      } 
-
-      else {
-        const response = await axios.get(`${apiUrl}/sim?type=ask&ask=${encodeURIComponent(msg)}`);
-        const replyMessage = response.data.data.msg;
-
-        const textStyles = loadTextStyles();
-        const userStyle = textStyles[events.threadID]?.style || 'normal';
-
-        const kl = await axios.get(`https://raw.githubusercontent.com/MOHAMMAD-NAYAN-07/Nayan/main/api.json`);
-        const apiUrl2 = kl.data.api2;
-
-        const font = await axios.get(`${apiUrl2}/bold?text=${replyMessage}&type=${userStyle}`);
-        const styledText = font.data.data.bolded;
-
-        nayan.reply({ body: styledText }, events.threadID, (error, info) => {
-          if (error) {
-            return nayan.reply('An error occurred while processing your request. Please try again later.', events.threadID, events.messageID);
-          }
-
-          global.client.handleReply.push({
-            type: 'reply',
-            name: this.config.name,
-            messageID: info.messageID,
-            author: events.senderID,
-            head: msg,
-          });
-        }, events.messageID);
-      }
-    } catch (error) {
-      console.log(error);
-      nayan.reply('An error has occurred, please try again later.', events.threadID, events.messageID);
-    }
-}
 }
 
-
-function loadTextStyles() {
-  const Path = path.join(__dirname, 'system', 'textStyles.json');
-  try {
-
-    if (!fs.existsSync(Path)) {
-      fs.writeFileSync(Path, JSON.stringify({}, null, 2));
-    }
-
-
-    const data = fs.readFileSync(Path, 'utf8');
-    return JSON.parse(data);  
-  } catch (error) {
-    console.error('Error loading text styles:', error);
-    return {}; 
-  }
-}
-
-function saveTextStyle(threadID, style) {
-
-  const styles = loadTextStyles(); 
-
-
-  styles[threadID] = { style }; 
-
-  const Path = path.join(__dirname, 'system', 'textStyles.json');
-  try {
-
-    fs.writeFileSync(Path, JSON.stringify(styles, null, 2));
-  } catch (error) {
-    console.error('Error saving text styles:', error);
-  }
-}
+module.exports.run = function({ api, event, client, __GLOBAL }) { }
