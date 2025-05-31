@@ -33,7 +33,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
    };
 
    if ((event.body.toLowerCase() == "Bot boss") || (event.body.toLowerCase() == "নাঈম কে")) {
-     return api.sendMessage("𝗡𝗔𝗬𝗘𝗠 𝗞𝗜𝗡𝗚\nhttps://www.facebook.com/NAYEM.KING.OK🥰🥀", threadID);
+     return api.sendMessage("𝗡𝗔𝗬𝗘𝗠 𝗞𝗜𝗡𝗚\nhttps://www.facebook.com/NAYEM.VAW.OKY 🥰🥀", threadID);
    };
 
    if ((event.body.toLowerCase() == "lol") || (event.body.toLowerCase() == "lol player")) {
@@ -143,7 +143,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
    };
 
    if ((event.body.toLowerCase() == "🥰") || (event.body.toLowerCase() == "❤️")) {
-     return api.sendMessage("এৃঁতোৃঁ ভাৃঁলোৃঁবাৃঁসাৃঁ কৃঁইৃঁ পাৃঁওৃঁ আৃঁমাৃঁরৃঁ বৃঁসৃ্ঁ নাৃঁঈৃঁমৃঁঁ কেৃঁ এৃঁকৃঁটুৃঁ দেৃঁওৃঁ🥰", threadID);
+     return api.sendMessage("এতো ভালোবাসা কই পাও আমার বস নাঈম কে একটু দেও🥰", threadID);
    };
 
    if ((event.body.toLowerCase() == "bot ঘুমাও") || (event.body.toLowerCase() == "Bot ঘুমাবা কখন?")) {
